@@ -1,26 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <title>Prediction</title>
-</head>
+{% block title %}Prediction Result{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Prediction Result</h1>
+<div class="form-page-wrapper">
 
-<h2>
-    {% if result == 0 %}
-        The customer may leave the company
-    {% else %}
-        The customer may not leave the company
-    {% endif %}
-</h2>
+    <!-- Page Header -->
+    <header class="form-page-header">
+        <div class="form-page-badge">ML Analytics Platform</div>
+        <h1>Prediction <em>Result</em></h1>
+        <p class="form-page-subtitle">Here is what our ensemble model predicts for this customer profile.</p>
+    </header>
 
+    <!-- Result Card -->
+    <div class="result-dark-wrapper">
+        <div class="result-dark-card {% if result == 0 %}result-dark-churn{% else %}result-dark-retain{% endif %}">
 
+            <!-- Icon -->
+            <div class="result-icon">
+                {% if result == 0 %}⚠️{% else %}✅{% endif %}
+            </div>
 
-    <a href="/">Go Back</a>
+            <!-- Badge -->
+            <div class="result-badge {% if result == 0 %}badge-danger{% else %}badge-success{% endif %}">
+                {% if result == 0 %}High Churn Risk{% else %}Low Churn Risk{% endif %}
+            </div>
 
-</body>
+            <!-- Heading -->
+            <h2 class="result-dark-heading">
+                {% if result == 0 %}
+                    This customer is likely to <em>leave</em> the company.
+                {% else %}
+                    This customer is likely to <em>stay</em> with the company.
+                {% endif %}
+            </h2>
 
-</html>
+            <!-- Description -->
+            <p class="result-dark-description">
+                {% if result == 0 %}
+                    Our model predicts a high probability of churn for this customer profile.
+                    Consider reaching out with a retention offer or personalized support.
+                {% else %}
+                    Our model predicts this customer is likely to remain with the company.
+                    Continue maintaining a positive customer experience.
+                {% endif %}
+            </p>
+
+            <hr class="result-dark-divider">
+
+            <!-- Actions -->
+            <div class="result-dark-actions">
+                <a href="/predictor" class="btn-hero-primary">
+                    Run Another Prediction
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="/" class="btn-hero-secondary">← Back to Home</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

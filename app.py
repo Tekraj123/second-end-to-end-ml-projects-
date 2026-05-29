@@ -9,12 +9,12 @@ from flask import Flask,render_template,request
 app = Flask(__name__) 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 @app.route('/predictor',methods=['GET','POST'])
 def predict_datapoint():
     if request.method=='GET':
-        return render_template('home.html')
+        return render_template('index.html')
     else:
           data=CustomData( 
                 request.form.get('gender'),
